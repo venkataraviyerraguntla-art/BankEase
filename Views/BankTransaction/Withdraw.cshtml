@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Withdraw";
+}
+
+<h2>Withdraw Money</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Account Number</label>
+        <input type="text" name="AccountNumber" class="form-control" required />
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label>Amount</label>
+        <input type="number" name="Amount" class="form-control" step="0.01" required />
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-danger">Withdraw</button>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger">
+        @Html.ValidationSummary()
+    </div>
+}

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BankEase.Models.BankTransaction>
+
+@{
+    ViewBag.Title = "Transaction History";
+}
+
+<h2>Transaction History</h2>
+
+@using (Html.BeginForm("Index", "BankTransaction", FormMethod.Get))
+{
+    <div class="form-group">
+        <label>Account Number</label>
+
+        <input type="text"
+               name="AccountNumber"
+               value="@ViewBag.AccountNumber"
+               class="form-control"
+               placeholder="Enter Account Number"
+               required />
+
+        <br />
+
+        <button type="submit" class="btn btn-primary">
+            View History
+        </button>
+    </div>
+}
+
+<br />
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.AccountNumber))
+{
+    <h4>
+        Transactions for Account:
+        @ViewBag.AccountNumber
+    </h4>
+}
+
+<table class="table table-bordered table-striped">
+
+    <tr>
+        <th>Account Number</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+        <th>Transaction Date</th>
+    </tr>
+
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Account.AccountNumber
+                </td>
+
+                <td>
+                    @item.TransactionType
+                </td>
+
+                <td>
+                    ₹@item.Amount
+                </td>
+
+                <td>
+                    @item.TransactionDate.ToString("dd-MM-yyyy hh:mm tt")
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="4">
+                No transactions found for this account.
+            </td>
+        </tr>
+    }
+
+</table>

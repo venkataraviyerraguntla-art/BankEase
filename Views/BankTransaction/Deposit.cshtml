@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Deposit";
+}
+
+<h2>Deposit Money</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label>Account Number</label>
+        <input type="text" name="AccountNumber" required />
+    </div>
+
+    <br />
+
+    <div>
+        <label>Amount</label>
+        <input type="number" name="Amount" step="0.01" required />
+    </div>
+
+    <br />
+
+    <button type="submit">Deposit</button>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        @Html.ValidationSummary()
+    </div>
+}
